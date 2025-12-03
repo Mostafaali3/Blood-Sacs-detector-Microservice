@@ -3,10 +3,15 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 import os
+import firebase_handler
+import json
+
+
 
 load_dotenv()
-
+firebase_handler.init_firebase()
 app = FastAPI()
+
 api_key = os.getenv("API_KEY")
 client = genai.Client(api_key=api_key)  #get the dot env from mostafa
 
@@ -38,4 +43,13 @@ async def caption_image(file: UploadFile = File(...)):
             """
         ]
     )
-    return {"caption": response.text}
+    clean_text = response.text.replace("```json", "").replace("```", "").strip()
+    print(f"Gemini Result: {clean_text}")
+        
+    analysis_data = json.loads(clean_text)
+
+    firebase_handler.update_inventory(analysis_data)
+
+    return {"status": "success", "data": analysis_data}
+
+    
