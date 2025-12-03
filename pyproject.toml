@@ -9,6 +9,7 @@ dependencies = [
     "autogen-core>=0.7.5",
     "autogen-ext>=0.7.5",
     "fastapi>=0.122.0",
+    "firebase-admin>=7.1.0",
     "genai>=2.1.0",
     "google-genai>=1.52.0",
     "python-dotenv>=1.2.1",

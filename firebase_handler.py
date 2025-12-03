@@ -5,7 +5,7 @@ import os
 def init_firebase():
     """Initializes the connection to Firebase using the service_account.json file."""
     if not firebase_admin._apps:
-        cred_path = os.path.join(os.path.dirname(__file__), "iot-midterm-project-firebase-adminsdk-fbsvc-8942c88c7b.json")
+        cred_path = os.path.join(os.path.dirname(__file__), "iot-midterm-project-firebase-adminsdk-fbsvc-0d012c88bc.json")
         
         if os.path.exists(cred_path):
             cred = credentials.Certificate(cred_path)
@@ -21,7 +21,7 @@ def update_inventory(data):
     try:
         # Only try to update if Firebase is initialized
         if firebase_admin._apps:
-            ref = db.reference('inventory/bloodBags')
+            ref = db.reference('inventory')
             ref.update(data)
             print("Inventory updated in Firebase!")
         else:
